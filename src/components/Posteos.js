@@ -1,11 +1,12 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import React from 'react'
 import Post from './Post'
 
 export default function Posteos(props) {
   return (
-    <View>
-      <FlatList
+    <View style={styles.contenedor}>
+      <FlatList 
+        // NO SCROLLEA *********************************************************
         data={props.data}
         keyExtractor={(item)=> item.id.toString()}
         renderItem={({ item }) => <Post data={ item } /> }
@@ -13,3 +14,11 @@ export default function Posteos(props) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  contenedor: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+})

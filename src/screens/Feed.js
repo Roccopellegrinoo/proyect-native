@@ -1,7 +1,8 @@
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { db } from '../firebase/config'
 import Posteos from '../components/Posteos'
+import Header from '../components/Header'
 
 export default class Feed extends Component {
 
@@ -30,7 +31,9 @@ export default class Feed extends Component {
   render() {
     return (
       <View>
-        <Text>Feed</Text>
+        <div style={styles.header}>
+          <Header />
+        </div>
         <Posteos
             data={this.state.posts}
         />
@@ -38,3 +41,13 @@ export default class Feed extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+    header: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+})
