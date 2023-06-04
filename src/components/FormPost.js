@@ -24,6 +24,15 @@ export default class FormPost extends Component {
 }
 
 const styles = StyleSheet.create({
+    contenedorCamara: {
+        width: 400,
+        height: 300,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#e3e3e3',
+    },
     input: {
         borderWidth:1,
         borderColor: 'red',

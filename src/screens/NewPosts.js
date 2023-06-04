@@ -1,23 +1,20 @@
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import FormPost from '../components/FormPost'
+import Header from '../components/Header'
 import { db, auth } from '../firebase/config'
 
 class NewPosts extends Component {
     constructor(props){
         super(props)
         this.state = {
+            permisoCamara: false,
+            mostrarCamara: true,
+            urlImagen: '',
             descripcion: '',
-            foto:'',
-            likes:[],
-            comments:[]
+            likes: [],
+            comentarios: [],
         }
-    }
-
-    actualizarDescripcion(text){
-        this.setState({
-            descripcion: text
-        })
     }
 
     crearPosteo({descripcion, foto, likes, comments}){
@@ -35,25 +32,66 @@ class NewPosts extends Component {
         .catch(err => console.log(err))
     }
 
+    validarComentario(comentario) {
+        return comentario.length > 0
+    }
+
+    actualizarDescripcion(text){
+        this.setState({
+            descripcion: text
+        })
+    }
+
+    onImagePicked(image) {
+        const imageUri = image.uri
+        this.setState({
+            urlImagen: imageUri,
+            mostrarCamara: false
+        })
+    }
 
     render() {
         return (
-        <View>
+        <View style={styles.contenedor}>
+            <div style={styles.header}>
+                <Header />
+            </div>
             <FormPost stateDescripcion={this.state.descripcion} actualizarDescripcion={(text) => this.actualizarDescripcion(text) } />
-            <TouchableOpacity
-                onPress={()=> this.crearPosteo({
-                    descripcion:this.state.descripcion,
-                    foto:this.state.foto,
-                    likes: this.state.likes,
-                    comments:this.state.comments
-                })}
-            >
-                <Text>Enviar el posteo</Text>
-            </TouchableOpacity>
+            <View style={styles.contenedorBtn}>
+                <TouchableOpacity
+                    onPress={()=> this.crearPosteo({
+                        descripcion:this.state.descripcion,
+                        foto:this.state.foto,
+                        likes: this.state.likes,
+                        comments:this.state.comments
+                    })}
+                >
+                    <Text>Enviar el posteo</Text>
+                </TouchableOpacity>
+            </View>
         </View>
         )
     }
 }
 
-
 export default NewPosts
+
+const styles = StyleSheet.create({
+    contenedor: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    header: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    contenedorBtn: {
+        
+    }
+})
