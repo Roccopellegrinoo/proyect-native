@@ -3,13 +3,12 @@ import React, { Component } from 'react'
 import FormPost from '../components/FormPost'
 import Header from '../components/Header'
 import { db, auth } from '../firebase/config'
+import CamaraPost from '../components/CamaraPost'
 
 class NewPosts extends Component {
     constructor(props){
         super(props)
         this.state = {
-            permisoCamara: false,
-            mostrarCamara: true,
             urlImagen: '',
             descripcion: '',
             likes: [],
@@ -42,6 +41,13 @@ class NewPosts extends Component {
         })
     }
 
+    actualizarEstadoFoto(foto){
+        this.setState ({
+            urlImagen: foto
+        })
+
+    }
+
     onImagePicked(image) {
         const imageUri = image.uri
         this.setState({
@@ -52,12 +58,23 @@ class NewPosts extends Component {
 
     render() {
         return (
+            
         <View style={styles.contenedor}>
             <div style={styles.header}>
                 <Header />
             </div>
+            {
+                this.state.urlImagen === "" ?
+               <CamaraPost
+               actualizarEstadoFoto={
+                (foto)=>this.actualizarEstadoFoto(foto)
+               }
+               
+               />
+               : 
+           <>
             <FormPost stateDescripcion={this.state.descripcion} actualizarDescripcion={(text) => this.actualizarDescripcion(text) } />
-            <View style={styles.contenedorBtn}>
+            
                 <TouchableOpacity
                     onPress={()=> this.crearPosteo({
                         descripcion:this.state.descripcion,
@@ -68,8 +85,10 @@ class NewPosts extends Component {
                 >
                     <Text>Enviar el posteo</Text>
                 </TouchableOpacity>
+                    </>
+                 }
             </View>
-        </View>
+        
         )
     }
 }
