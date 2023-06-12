@@ -7,6 +7,7 @@ class Buscador extends Component {
     constructor(props){
         super(props)
         this.state = {
+            busqueda: '',
             posts: []
         }
     }

@@ -1,6 +1,7 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { Component } from 'react'
 import { Camera } from 'expo-camera'
+import { storage } from '../firebase/config'
 
 export default class CamaraPost extends Component {
   constructor(props) {
@@ -22,8 +23,10 @@ export default class CamaraPost extends Component {
   tomarFoto() {
     this.metodosCamara.takePictureAsync()
     .then(fotoEnMemoria => {
-      this.setState({
-        fotoTomada: fotoEnMemoria.uri
+      this.setState(
+        {
+        fotoTomada: fotoEnMemoria.uri,
+        mostrarCamara: false
       })
 
     })

@@ -8,7 +8,7 @@ import FuncionalitiesNav from './FuncionalitiesNav'
 import Feed from '../screens/Feed';
 import Profile from '../screens/Profile'
 import NewPosts from '../screens/NewPosts';
-
+import Buscador from '../screens/Buscador';
 const Tab = createBottomTabNavigator()
 
 export default function Ho24meNav() {
@@ -40,6 +40,10 @@ export default function Ho24meNav() {
                 tabBarIcon: ()=> 
                 <AntDesign name='profile' color='#74549B' size ={24} />
             }}    
+        />
+        <Tab.Screen
+            name='Buscador'
+            component={Buscador}
         />
     </Tab.Navigator>
   )

@@ -81,7 +81,7 @@ class NewPosts extends Component {
                         descripcion:this.state.descripcion,
                         foto:this.state.foto,
                         likes: this.state.likes,
-                        comments:this.state.comments
+                        comments:this.state.comentarios
                     })}
                 >
                     <Text>Enviar el posteo</Text>
