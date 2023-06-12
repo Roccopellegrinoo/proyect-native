@@ -65,13 +65,14 @@ class NewPosts extends Component {
             </div>
             {
                 this.state.urlImagen === "" ?
-               <CamaraPost
-               actualizarEstadoFoto={
-                (foto)=>this.actualizarEstadoFoto(foto)
-               }
+                <CamaraPost
+                actualizarEstadoFoto={
+                 (foto)=>this.actualizarEstadoFoto(foto)
+                }
+                
+                />
+                :
                
-               />
-               : 
            <>
             <FormPost stateDescripcion={this.state.descripcion} actualizarDescripcion={(text) => this.actualizarDescripcion(text) } />
             
