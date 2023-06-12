@@ -9,7 +9,7 @@ export default class CamaraPost extends Component {
       mostrarCamara: false,
       fotoTomada: ''
     }
-    this, this.metodosCamara = null
+    this.metodosCamara = null
 
   }
   componentDidMount() {

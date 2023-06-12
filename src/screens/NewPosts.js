@@ -99,7 +99,7 @@ export default NewPosts
 const styles = StyleSheet.create({
     contenedor: {
         width: '100%',
-        display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
