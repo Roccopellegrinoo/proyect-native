@@ -29,12 +29,37 @@ export default class CamaraPost extends Component {
     })
     .catch(err => console.log(err))
   }
+  aceptarFoto(){
+    fetch(this.state.fotoTomada)
+    .then(resp => resp.blob())
+    .then(imagen => {
+        const ref = storage.ref(`fotos/${Date.now()}.jpg`)
+        ref.put(imagen)
+        .then(()=>{
+            ref.getDownloadURL()
+            .then((url)=> this.props.actualizarEstadoFoto(url))
+        })
+
+    })
+    .catch(err => console.log(err))
+}
+
+rechazarFoto(){
+    this.setState({
+        mostrarCamara: true,
+        fotoTomada:''
+    })
+}
+
+
+
+
 
   render() {
     return (
       <View style={styles.contenedor}>
         {
-          this.state.mostrarCamara ?
+          this.state.mostrarCamara && this.state.fotoTomada === '' ?
             <>
               <Camera
                 style={styles.camara}
@@ -49,7 +74,30 @@ export default class CamaraPost extends Component {
                 </Text>
               </TouchableOpacity>
             </>
-            :
+            : this.state.mostrarCamara === false && this.state.fotoTomada !== '' ?
+            <>
+                    <Image
+                        source={{uri: this.state.fotoTomada}}
+                        style={styles.img}
+                    />
+                    <View>
+                        <TouchableOpacity
+                        onPress={()=> this.aceptarFoto()}
+                        >
+                            <Text>
+                                Aceptar foto
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                        onPress={()=> this.rechazarFoto()}
+                        >
+                            <Text>
+                                Rechazar foto
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+                :
             <Text>No tiene permiso para usar la camara</Text>
         }
       </View>
