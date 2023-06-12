@@ -81,7 +81,7 @@ rechazarFoto(){
             <>
                     <Image
                         source={{uri: this.state.fotoTomada}}
-                        style={styles.img}
+                        style={styles.imagen}
                     />
                     <View>
                         <TouchableOpacity
@@ -112,6 +112,11 @@ const styles = StyleSheet.create({
     flex: 1
   },
   camara: {
-    height: 250
+    height: 200,
+    width: 200
+  },
+  imagen:{
+    height: 200,
+    width: 200
   }
 })
