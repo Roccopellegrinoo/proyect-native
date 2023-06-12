@@ -2,7 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Feed from '../screens/Feed'
 import Comments from '../screens/Comments'
-//import Buscador from '../screens/Buscador'
+import Buscador from '../screens/Buscador'
 const Stack = createNativeStackNavigator()
 
 function FunctionalitiesNav() {
