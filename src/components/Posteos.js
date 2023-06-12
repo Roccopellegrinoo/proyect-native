@@ -6,10 +6,10 @@ export default function Posteos(props) {
   return (
     <View style={styles.contenedor}>
       <FlatList 
-        // NO SCROLLEA *********************************************************
         data={props.data}
         keyExtractor={(item)=> item.id.toString()}
-        renderItem={({ item }) => <Post data={ item } /> }
+        renderItem={({ item }) => <Post navigation={props.navigation} data={ item } /> }
+        showsVerticalScrollIndicator={false}
       />
     </View>
   )
@@ -17,7 +17,8 @@ export default function Posteos(props) {
 
 const styles = StyleSheet.create({
   contenedor: {
-    display: 'flex',
+    flex: 1,
+    // display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },

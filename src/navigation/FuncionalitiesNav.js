@@ -21,6 +21,10 @@ function FunctionalitiesNav() {
             name='Comments'
             component={Comments}
         />
+        <Stack.Screen
+            name='Buscador'
+            component={Buscador}
+        />
       </Stack.Navigator>
     )
 }
