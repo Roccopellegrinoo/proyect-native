@@ -1,8 +1,18 @@
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import FormRegister from '../components/FormRegister';
+import { auth } from '../firebase/config'
 
 class Register extends Component {
+
+  componentDidMount(){
+    auth.onAuthStateChanged( user => {
+        if(user){
+            this.props.navigation.navigate('HomeNav')
+        }
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
