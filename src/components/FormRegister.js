@@ -10,58 +10,24 @@ export default class FormRegister extends Component {
             inputMail: '',
             inputDireccion: '',
             inputTelefono: '',
-            inputPassword: '',
+            inputContraseña: '',
         }
+    }
+
+    registrarUsuario(mail, contraseña){
+        auth.createUserWithEmailandContraseña(mail, contraseña)
+        .then( data => {
+            this.props.navigation.navigate('HomeNav')
+            db.collection('users').add({
+                owner:auth.currentUser.email,
+                createdAt: Date.now()
+            })
+            .then(resp => console.log(resp))
+            .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
     }
     
-    validarCampo(texto) {
-        return texto.length >= 3
-    }
-
-    validarTelefono(numero) {
-        let numstring = numero.toString()
-        return numstring.length === 10
-    }
-
-    registrarUsuario(mail, password) {
-
-        if (!this.validarCampo(mail)) {
-            console.log('Longitud de email no válida.');
-        }
-
-        if (!this.validarCampo(password)) {
-            console.log('Longitud de password no válida.');
-        }
-
-        if (!this.validarCampo(this.state.inputNombre)) {
-            console.log('Longitud de nombre no válida.');
-        }
-
-        if (!this.validarCampo(this.state.inputDireccion)) {
-            console.log('Longitud de dirección no válida.');
-        }
-
-        if (!this.validarTelefono(this.state.inputTelefono)) {
-            console.log('Longitud de teléfono no válida.');
-        }
-
-        auth.createUserWithEmailAndPassword(mail, password)
-            .then(data => {
-                this.props.navigation.navigate('HomeNav')
-                db.collection('users').add({
-                    name: this.state.inputNombre,
-                    email: this.state.inputMail,
-                    address: this.state.inputDireccion,
-                    phone: this.state.inputTelefono,
-                    createdAt: Date.now()
-                })
-                    .then(resp => console.log(resp))
-                    .catch(err => console.log(err))
-            })
-            .catch(err => console.log(err))
-    }
-
-
 
     render() {
         return (
