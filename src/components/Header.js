@@ -22,22 +22,20 @@ class Header extends Component {
     render() {
         return (
             <View style={styles.contenedor}>
-                <Text>LOGO RED SOCIAL</Text>
-                <div style={styles.buscador}> {/* Podría ser un componente directamente */}
+                <Text style={styles.logo}>LOGO RED SOCIAL</Text>
+                <View style={styles.buscador}>
                     <TextInput
                         onChangeText={(text) => {this.setState({busqueda: text})}}
                         style={styles.input}
-                        placeholder = 'Buscar'
+                        placeholder='Buscar'
                     />
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => this.enviarBusqueda()}
                     >
-                        <Text>
-                            <Ionicons name='md-search' color='#74549B' size ={24} />
-                        </Text>
+                        <Ionicons name='md-search' color='#34044C' size={24} />
                     </TouchableOpacity>
-                </div>
+                </View>
             </View>
         )
     }
@@ -47,28 +45,31 @@ export default Header;
 
 const styles = StyleSheet.create({
     contenedor: {
-        width: '50%',
+        width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 25,
     },
+    logo: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#34044C'
+    },
     buscador: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        border: '1px solid gray',
+        borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: '#e3e3e3',
+        borderColor: '#34044C',
         borderRadius: 10,
+        marginLeft: 10
     },
     input: {
         height: 40,
         width: 200,
-        borderRightWidth: 1,
-        borderColor: '#e3e3e3',
         paddingLeft: 10
     },
     button: {

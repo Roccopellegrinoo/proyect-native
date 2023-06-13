@@ -30,10 +30,10 @@ export default class Feed extends Component {
     }
   render() {
     return (
-      <View style={styles.contenedor}>
-        <div style={styles.header}>
+      <View style={styles.container}>
+        <View style={styles.header}>
           <Header navigation={this.props.navigation}/>
-        </div>
+        </View>
         <Posteos
             data={this.state.posts}
             navigation={this.props.navigation}
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    contenedor: {
+    container: {
       flex: 1,
+      backgroundColor: '#d0a8f4',
     }
 })
