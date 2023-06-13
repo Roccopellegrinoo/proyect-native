@@ -66,7 +66,7 @@ export default class FormRegister extends Component {
     render() {
         return (
             <View style={styles.contenedor}>
-                <Text style={styles.title}>Registrar</Text>
+                <Text style={styles.title}>Regístrate</Text>
                 <TextInput
                     style={styles.input}
                     placeholder='Nombre completo'
@@ -97,14 +97,14 @@ export default class FormRegister extends Component {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Password'
-                    onChangeText={(text) => this.setState({ inputPassword: text })}
-                    value={this.state.inputPassword}
+                    placeholder='Contraseña'
+                    onChangeText={(text) => this.setState({ inputContraseña: text })}
+                    value={this.state.inputContraseña}
                     secureTextEntry={true}
                 />
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputPassword)}
+                    onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputContraseña)}
                 >
                     <Text style={styles.btnText}>Registrar mi usuario</Text>
                 </TouchableOpacity>

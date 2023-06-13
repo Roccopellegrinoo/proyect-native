@@ -1,15 +1,14 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { Component } from 'react'
-import FormRegister from '../components/FormRegister'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import FormRegister from '../components/FormRegister';
 
 class Register extends Component {
-
   render() {
     return (
-      <View style={styles.contenedor}>
+      <View style={styles.container}>
         <FormRegister navigation={this.props.navigation} />
         <Text style={styles.text}>
-          ¿Ya tienes cuenta?<Text> </Text>
+          ¿Ya tienes una cuenta?<Text> </Text>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Login')}
           >
@@ -17,28 +16,33 @@ class Register extends Component {
           </TouchableOpacity>
         </Text>
       </View>
-    )
+    );
   }
 }
 
-export default Register
+export default Register;
 
 const styles = StyleSheet.create({
-  contenedor: {
-    display: 'flex',
+  container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#74549B',
-    height: '100vh'
+    backgroundColor: '#34044C',
   },
   text: {
     textAlign: 'center',
-    color: '#fff',
+    color: '#FFFFFF',
+    marginTop: 20,
+    fontSize: 16,
+    lineHeight: 24,
   },
   btnText: {
     textAlign: 'center',
-    color: '#fff',
+    color: '#FECB2E',
     fontWeight: 'bold',
-    textDecorationLine: 'underline'
-  }
-})
+    textDecorationLine: 'underline',
+    marginTop: 5,
+    fontSize: 16,
+    lineHeight: 24,
+  },
+});

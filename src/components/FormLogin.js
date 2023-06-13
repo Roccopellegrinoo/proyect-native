@@ -6,8 +6,8 @@ class FormLogin extends Component {
     constructor(props){
         super(props)
         this.state={
-            email:'',
-            password:''
+            inputEmail:'',
+            inputContraseña:''
         }
     }
     validarCampo(texto) {
@@ -28,24 +28,25 @@ class FormLogin extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.contenedor}>
+        <Text style={styles.title}>Ingresar</Text>
         <TextInput
             placeholder='Ingresa tu email'
             keyboardType='email-address'
-            value={this.state.email}
-            onChangeText={(text)=> this.setState({email: text})}
+            value={this.state.inputEmail}
+            onChangeText={(text)=> this.setState({inputEmail: text})}
             style={styles.input}
         />
         <TextInput
             placeholder='Contraseña'
             keyboardType='password'
-            value={this.state.password}
-            onChangeText={(text) => this.setState({ password: text })}
+            value={this.state.inputContraseña}
+            onChangeText={(text) => this.setState({ inputContraseña: text })}
             style={styles.input}
             secureTextEntry={true}
         />
         <TouchableOpacity
-            onPress={() => this.logueo(this.state.email, this.state.password)}
+            onPress={() => this.logueo(this.state.inputEmail, this.state.inputContraseña)}
             style={styles.btn}
         >
                     <Text style={styles.btnText}>Ingresar</Text>
