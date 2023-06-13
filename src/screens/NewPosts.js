@@ -60,9 +60,9 @@ class NewPosts extends Component {
         return (
             
         <View style={styles.contenedor}>
-            <div style={styles.header}>
+            <View style={styles.header}>
                 <Header />
-            </div>
+            </View>
             {
                 this.state.urlImagen === "" ?
                 <CamaraPost
@@ -74,7 +74,10 @@ class NewPosts extends Component {
                 :
                
            <>
-            <FormPost stateDescripcion={this.state.descripcion} actualizarDescripcion={(text) => this.actualizarDescripcion(text) } />
+            <FormPost 
+            stateDescripcion={this.state.descripcion} 
+            actualizarDescripcion={(text) => this.actualizarDescripcion(text) } 
+            />
             
                 <TouchableOpacity
                     onPress={()=> this.crearPosteo({
