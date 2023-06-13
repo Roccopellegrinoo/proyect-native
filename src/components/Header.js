@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     logo: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#34044C'
+        color: '#bc74b8'
     },
     buscador: {
         display: 'flex',
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderStyle: 'solid',
         borderWidth: 1,
-        borderColor: '#34044C',
+        borderColor: '#bc74b8',
         borderRadius: 10,
         marginLeft: 10
     },

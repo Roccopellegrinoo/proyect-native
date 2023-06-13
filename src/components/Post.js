@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   imageContainer: {
-    backgroundColor: '#000000',
+    backgroundColor: '#bc74b8',
     marginVertical: 10
   },
   image: {
