@@ -17,7 +17,7 @@ export default class Feed extends Component {
         db.collection('posts').onSnapshot( docs => {
             let arrDocs=[]
 
-            docs.forEach(doc => arrDocs.push({
+             docs.forEach(doc => arrDocs.push({
                 id: doc.id,
                 data:doc.data()
             }))

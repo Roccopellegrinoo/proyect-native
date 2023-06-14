@@ -8,7 +8,10 @@ export default class FormPost extends Component {
   
     render() {
         return (
-        <View>
+        <View >
+             <View style={styles.contenedorCamara}> {/* CONTENEDOR CAMARA */}
+                
+            </View>
             <TextInput
             style={styles.input}
             keyboardType='default'

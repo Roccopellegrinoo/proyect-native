@@ -1,49 +1,62 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import { db } from '../firebase/config';
-import Posteos from '../components/Posteos';
+//import Posteos from '../components/Posteos';
 
 class Buscador extends Component {
     constructor(props){
         super(props)
         this.state = {
             busqueda: '',
-            posts: []
+            usuarios: [],
+            usuariosBackup: []
         }
     }
-
+      
     componentDidMount(){
-        const busqueda = this.props.route.params.busqueda;
-
-        db.collection('posts').onSnapshot( docs => {
-            let arrDocs=[]
-
-            docs.forEach(doc => {
-                if (doc.data().descripcion.includes(busqueda)) {
-                    arrDocs.push({
+        db.collection('users').onSnapshot(
+            docs => {
+                let arrUsers = []
+                docs.forEach(doc => {
+                    arrUsers.push({
                         id: doc.id,
-                        data:doc.data()
+                        data: doc.data()
                     })
-                }
-            })
+                })
 
-            this.setState({
-                posts: arrDocs
-            })
-        })
+                this.setState({
+                    usuarios : arrUsers,
+                    usuariosBackup : arrUsers
+                
+                })
+        
+            }
+        )
+
     }
 
+    Filtrado(loFiltrado){
+    let arrFiltrado = this.state.usuarios
+    .filter(usuario =>
+        usuario.data.owner.toLowerCase().includes(loFiltrado.toLowerCase()))
+        this.setState({usuarios:arrFiltrado})
+    }
     render() {
         return (
             <View>
-                {
-                    this.state.posts.length > 0 ?
-                    <Posteos
-                        data={this.state.posts}
-                        navigation={this.props.navigation}
-                    /> :
-                    <Text>No hay resultados para esta busqueda</Text>
-                }
+                
+                   <Text>  Buscador </Text>
+                   <TextInput
+                     placeholder='ingresa tu mail'
+                     onChangeText={(Text) => this.Filtrado(Text)}
+                />
+                <FlatList
+                data={this.state.usuarios}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item})=><Text>{item.data.owner}</Text>}
+                
+                
+                />
             </View>
         )
     }
