@@ -15,7 +15,7 @@ export default class FormRegister extends Component {
     }
 
     registrarUsuario(mail, contraseña){
-        auth.createUserWithEmailandContraseña(mail, contraseña)
+        auth.createUserWithEmailAndPassword(mail, contraseña)
         .then( data => {
             this.props.navigation.navigate('HomeNav')
             db.collection('users').add({
