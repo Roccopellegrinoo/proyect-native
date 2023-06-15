@@ -29,7 +29,7 @@ export default class ProfileData extends Component {
         <Text style={styles.descriptionText}>Esta es la mini descripción del usuario.</Text>
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{this.props.lenPosteos}0</Text>
+            <Text style={styles.statNumber}>{this.props.lenPosteos}</Text>
             <Text style={styles.statLabel}>Publicaciones</Text>
           </View>
           <View style={styles.statItem}>
