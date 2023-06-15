@@ -66,5 +66,26 @@ class Buscador extends Component {
 export default Buscador;
 
 const styles = StyleSheet.create({
-
-})
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#FFF',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    input: {
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#DDD',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+    },
+    user: {
+        fontSize: 16,
+        marginBottom: 5,
+    },
+});
