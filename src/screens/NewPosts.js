@@ -82,7 +82,7 @@ class NewPosts extends Component {
                 <TouchableOpacity
                     onPress={()=> this.crearPosteo({
                         descripcion:this.state.descripcion,
-                        foto:this.state.foto,
+                        foto:this.state.urlImagen,
                         likes: this.state.likes,
                         comments:this.state.comentarios
                     })}

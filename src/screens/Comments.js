@@ -6,12 +6,32 @@ import { db } from '../firebase/config'
 export default class Comments extends Component {
     constructor(props){
         super(props)
-        this.state={}
+        this.state={
+            data:{}
+        }
     }
+        componentDidMount(){
+            db.collection('posts')
+            .doc(this.props.route.params.id)
+            .onSnapshot(doc => {
+                this.setState({
+                    data:doc.data()
+                }, ()=> console.log(this.state.data))
+            })
+        }
+    
   render() {
     return (
         <View style={styles.contenedor}>
-            <CommentsForm idPost={this.props.route.params.id} navigation={this.props.navigation} />
+            <Text>Comentarios</Text>
+            <FlatList
+            data={this.state.data.Comments}
+            keyExtractor={item => item.createdAt.toString()}
+            renderItem={(item) => <Text>{item.comentario} </Text>}
+            
+            
+            />
+            <CommentsForm idPost={this.props.route.params.id} />
         </View>
     )
   }

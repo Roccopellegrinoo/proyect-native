@@ -1,8 +1,24 @@
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
-import { auth } from '../firebase/config'
+import { db, auth } from '../firebase/config'
 
 export default class ProfileData extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      usuario: {},
+    };
+  }
+
+  componentDidMount() {
+    db.collection('users').where('email', '==', this.props.emailUsuario).onSnapshot(docs => {
+      docs.forEach(doc => {
+        this.setState({
+          usuario: doc.data()
+        }, () => console.log(this.state.usuario))
+      })
+    })
+  }
 
   logout() {
     auth
@@ -16,20 +32,20 @@ export default class ProfileData extends Component {
       <View style={styles.container}>
         <View style={styles.profileContainer}>
           <Image
-            source={{ uri: 'https://picsum.photos/200/300' }}
+            source={{ uri: 'https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png' }}
             style={styles.profilePicture}
           />
           <View style={styles.profileInfoContainer}>
-            <Text style={styles.emailText}>{auth.currentUser.email}</Text>
+            <Text style={styles.emailText}>{this.state.usuario.name}</Text>
             <TouchableOpacity onPress={() => this.logout()} style={styles.logoutButton}>
               <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.descriptionText}>Esta es la mini descripción del usuario.</Text>
+        <Text style={styles.descriptionText}>{this.state.usuario.bio}</Text>
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>{this.props.lenPosteos}0</Text>
+            <Text style={styles.statNumber}>{this.props.lenPosteos}</Text>
             <Text style={styles.statLabel}>Publicaciones</Text>
           </View>
           <View style={styles.statItem}>

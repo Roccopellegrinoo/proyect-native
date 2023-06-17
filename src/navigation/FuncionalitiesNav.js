@@ -2,6 +2,8 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Feed from '../screens/Feed'
 import Comments from '../screens/Comments'
+import ProfileAmigo from '../screens/ProfileAmigo'
+import Buscador from '../screens/Buscador'
 const Stack = createNativeStackNavigator()
 
 function FunctionalitiesNav() {
@@ -21,9 +23,15 @@ function FunctionalitiesNav() {
             component={Comments}
         />
         <Stack.Screen
+            name='ProfileAmigo'
+            component={ProfileAmigo}
+        />
+        {/* DESDE ACÁ ES DE EMI */}
+        <Stack.Screen
             name='Buscador'
             component={Buscador}
         />
+        {/* HASTA ACÁ ES DE EMI */}
       </Stack.Navigator>
     )
 }

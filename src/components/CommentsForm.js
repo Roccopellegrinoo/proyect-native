@@ -8,8 +8,8 @@ export default class CommentsForm extends Component {
     constructor(props){
         super(props)
         this.state = {
-            comentario:'',
-            data:{}
+            comentario:''
+            
         }
     }
 
@@ -25,35 +25,11 @@ export default class CommentsForm extends Component {
         })
     }
 
-    componentDidMount(){
-        db.collection('posts')
-        .doc(this.props.idPost)
-        .onSnapshot(doc => {
-            this.setState({
-                data:doc.data()
-            }, ()=> console.log(this.state.data))
-        })
-    }
+    
 
-  render() {
-    return (
-        <View style={styles.contenedor}>
-            {
-                this.state.data.comments && this.state.data.comments.length > 0 ? 
-                <>
-                    <Text style={styles.title}>Comentarios</Text>
-                    <FlatList
-                        style={styles.flatList}
-                        data={this.state.data.comments}
-                        keyExtractor={item => item.createdAt.toString()}
-                        renderItem={({item}) => <Comentario owner={item.owner} comentario={item.comentario} navigation={this.props.navigation}/>}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </> :
-                <Text style={styles.title}>No hay comentarios</Text>
-            }
-
-            {/*  */}
+    render() {
+        return (
+          <View>
             <TextInput
             keyboardType='default'
             style = {styles.input}
@@ -62,29 +38,17 @@ export default class CommentsForm extends Component {
             placeholder='Crea tu comentario'
             />
             <TouchableOpacity
-                style={styles.btn}
-                onPress={()=> this.crearComentario(this.state.comentario)}
+            onPress={()=> this.crearComentario(this.state.comentario)}
             >
-                <Text style={styles.btnText}>Enviar comentario</Text>
+                <Text>Enviar comentario</Text>
             </TouchableOpacity>
-      </View>
-    )
-  }
-}
+          </View>
+        )
+      }
+    }
 
 const styles = StyleSheet.create({
-    contenedor: {
-        width: '30%',
-        marginTop: 32,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        paddingTop: '5vh',
-        paddingBottom: 10,
-        marginBottom: 10
-    },
+
     input: {
         borderWidth: 1,
         borderColor: '#151515',
