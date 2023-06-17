@@ -11,7 +11,6 @@ export default class CommentsForm extends Component {
             comentario:'',
             data:{},
             error: ''
-            
         }
     }
 
@@ -32,9 +31,6 @@ export default class CommentsForm extends Component {
             })
         }
     }
-       
-
-
 
     componentDidMount(){
         db.collection('posts')
@@ -45,52 +41,62 @@ export default class CommentsForm extends Component {
             }, ()=> console.log(this.state.data))
         })
     }
-    
 
-    render() {
-        return (
-                <View style={styles.contenedor}>
-                    {
-                        this.state.data.comments && this.state.data.comments.length > 0 ? 
-                        <>
-                            <Text style={styles.title}>Comentarios</Text>
-                            <FlatList
-                                style={styles.flatList}
-                                data={this.state.data.comments}
-                                keyExtractor={item => item.createdAt.toString()}
-                                renderItem={({item}) => <Comentario owner={item.owner} comentario={item.comentario} navigation={this.props.navigation}/>}
-                                showsVerticalScrollIndicator={false}
-                            />
-                        </> :
-                        <Text style={styles.title}>No hay comentarios</Text>
-                    }
-        
-                    {/*  */}
-                    <TextInput
-                    keyboardType='default'
-                    style = {styles.input}
-                    onChangeText={text => this.setState({comentario: text})}
-                    value={this.state.comentario}
-                    placeholder='Crea tu comentario'
+  render() {
+    return (
+        <View style={styles.contenedor}>
+            {
+                this.state.data.comments && this.state.data.comments.length > 0 ? 
+                <>
+                    <Text style={styles.title}>Comentarios</Text>
+                    <FlatList
+                        style={styles.flatList}
+                        data={this.state.data.comments}
+                        keyExtractor={item => item.createdAt.toString()}
+                        renderItem={({item}) => <Comentario owner={item.owner} comentario={item.comentario} navigation={this.props.navigation}/>}
+                        showsVerticalScrollIndicator={false}
                     />
-                    <TouchableOpacity
-                        style = {
-                            this.state.comentario !== '' ?
-                            styles.btnH : 
-                            styles.btnD
-                        }
-                        onPress={()=> this.crearComentario(this.state.comentario)}
-                    >
-                        <Text style={styles.btnText}>Enviar comentario</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.error}>{this.state.error}</Text>
-              </View>
-            )
-          }
-        }
+                </> :
+                <Text style={styles.title}>No hay comentarios</Text>
+            }
+
+            {/*  */}
+            <TextInput
+            keyboardType='default'
+            style = {styles.input}
+            onChangeText={text => this.setState({comentario: text})}
+            value={this.state.comentario}
+            placeholder='Crea tu comentario'
+            />
+            <TouchableOpacity
+                style = {
+                    this.state.comentario !== '' ?
+                    styles.btnH : 
+                    styles.btnD
+                }
+                onPress={()=> this.crearComentario(this.state.comentario)}
+            >
+                <Text style={styles.btnText}>Enviar comentario</Text>
+            </TouchableOpacity>
+            <Text style={styles.error}>{this.state.error}</Text>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
-
+    contenedor: {
+        width: '30%',
+        marginTop: 32,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        paddingTop: '5vh',
+        paddingBottom: 10,
+        marginBottom: 10
+    },
     input: {
         borderWidth: 1,
         borderColor: '#151515',

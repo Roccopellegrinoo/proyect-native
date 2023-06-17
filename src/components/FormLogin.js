@@ -7,13 +7,15 @@ class FormLogin extends Component {
         super(props)
         this.state={
             inputEmail:'',
-            inputContraseña:''
+            inputContraseña:'',
+            inputError: '',
+            authError: '',
         }
     }
 
     logueo(mail, password){
 
-    this.setState({ inputError: '', authError: '' })
+        this.setState({ inputError: '', authError: '' })
 
         if (mail === '' || password === '') {
             console.log("Todos los campos son obligatorios.")
@@ -28,7 +30,10 @@ class FormLogin extends Component {
                 })
         }
 
-  render() 
+
+    }
+
+  render() {
     return (
       <View style={styles.contenedor}>
         <Text style={styles.title}>Ingresar</Text>
@@ -47,7 +52,7 @@ class FormLogin extends Component {
             style={styles.input}
             secureTextEntry={true}
         />
-           <TouchableOpacity
+        <TouchableOpacity
             onPress={() => this.logueo(this.state.inputEmail, this.state.inputContraseña)}
             style = {
                 this.state.inputEmail !== '' && this.state.inputContraseña !== '' ?

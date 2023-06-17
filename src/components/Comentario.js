@@ -11,7 +11,7 @@ class Comentario extends Component {
         return (
             <View style={styles.contenedor}>
                 <TouchableOpacity 
-                    onPress={() => this.props.navigation.navigate('ProfileAmigo', { owner: this.props.owner })}
+                    onPress={() => this.props.navigation.navigate('ProfileAmigo', { email: this.props.owner })}
                 >
                     <Text style={styles.owner}>{this.props.owner}</Text>
                 </TouchableOpacity>
