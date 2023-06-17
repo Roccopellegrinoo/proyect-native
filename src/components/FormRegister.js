@@ -8,26 +8,50 @@ export default class FormRegister extends Component {
         this.state = {
             inputNombre: '',
             inputMail: '',
+            inputBio: '',
             inputDireccion: '',
             inputTelefono: '',
             inputContraseña: '',
+            inputError: '',
+            authError: '',
+            setDocumentError: '',
         }
+        
     }
 
     registrarUsuario(mail, contraseña){
-        auth.createUserWithEmailAndPassword(mail, contraseña)
-        .then( data => {
-            this.props.navigation.navigate('HomeNav')
-            db.collection('users').add({
-                owner:auth.currentUser.email,
-                createdAt: Date.now()
-            })
-            .then(resp => console.log(resp))
-            .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
+        this.setState({ inputError: '', authError: '', setDocumentError: '' })
+
+        if (this.state.inputNombre === '' || this.state.inputMail === '' || this.state.inputContraseña === '') {
+            console.log("Los campos señalados son obligatorios.")
+            this.setState({ inputError: 'Los campos señalados son obligatorios.' })
+            return false
+        } else {
+            auth.createUserWithEmailAndPassword(mail, contraseña)
+                .then( data => {
+                    this.props.navigation.navigate('HomeNav')
+                    db.collection('users').add({
+                        name: this.state.inputNombre,
+                        email: auth.currentUser.email, 
+                        bio: this.state.inputBio,
+                        address: this.state.inputDireccion,
+                        phone: this.state.inputTelefono,
+                        createdAt: Date.now()
+                    })
+                    .then(resp => console.log(resp))
+                    .catch(err => {
+                        console.log(err)
+                        this.setState({ setCollectionError: 'Ocurrió un error al agregar tus datos' })
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.setState({ authError: 'Ocurrió un error al registrar tu usuario' })
+                })
+        }
+
     }
-    
+
 
     render() {
         return (
@@ -69,11 +93,26 @@ export default class FormRegister extends Component {
                     secureTextEntry={true}
                 />
                 <TouchableOpacity
-                    style={styles.btn}
+                    style = {
+                        this.state.inputNombre === '' && this.state.inputMail === '' && this.state.inputContraseña === '' ?
+                        styles.btnH : 
+                        styles.btnD
+                    }
                     onPress={() => this.registrarUsuario(this.state.inputMail, this.state.inputContraseña)}
                 >
                     <Text style={styles.btnText}>Registrar mi usuario</Text>
                 </TouchableOpacity>
+                {
+                    this.state.inputError !== '' || this.state.authError !== ''  || this.state.setDocumentError !== '' ?
+                    <Text
+                        style={styles.error}
+                    >
+                        {this.state.inputError}
+                        {this.state.authError}
+                        {this.state.setDocumentError}    
+                    </Text> : 
+                    null
+                }
             </View>
         )
     }
@@ -102,7 +141,26 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 5
     },
-    btn: {
+    input_area: {
+        borderWidth: 1,
+        borderColor: '#151515',
+        borderRadius: 5,
+        width: '90%',
+        marginTop: 24,
+        height: 24,
+        paddingVertical: 20,
+        paddingHorizontal: 5,
+        multiline: true,
+        numberOfLines: 4
+    },
+    btnD: {
+        marginTop: 32,
+        backgroundColor: '#3e3e3e',
+        padding: 10,
+        borderRadius: 20,
+        margin: 5,
+    },
+    btnH: {
         marginTop: 32,
         backgroundColor: '#74549B',
         padding: 10,
@@ -120,4 +178,7 @@ const styles = StyleSheet.create({
         color: '#151515',
         fontSize: 24,
     },
+    error: {
+        color: 'red',
+    }
 })
