@@ -4,11 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { AntDesign } from '@expo/vector-icons';
 
 import Home from '../screens/Home'
-import FuncionalitiesNav from './FuncionalitiesNav'
-import Feed from '../screens/Feed';
-import Profile from '../screens/Profile'
+import FuncionalitiesNav from './FuncionalitiesNav';
+import MiPerfil from '../screens/MiPerfil'
 import NewPosts from '../screens/NewPosts';
-import Buscador from '../screens/Buscador';
+
 const Tab = createBottomTabNavigator()
 
 export default function Ho24meNav() {
@@ -16,7 +15,8 @@ export default function Ho24meNav() {
     <Tab.Navigator>
         <Tab.Screen 
         name='Feed' 
-       component={Feed}
+        // component={Feed}
+        component={FuncionalitiesNav}
         options={{
             headerShown:false,
             tabBarIcon: () => 
@@ -33,17 +33,13 @@ export default function Ho24meNav() {
       }} 
         />
         <Tab.Screen 
-            name='Profile'
-            component={Profile}
+            name='MiPerfil'
+            component={MiPerfil}
             options={{
-              headerShown:false,
+                headerShown:false,
                 tabBarIcon: ()=> 
                 <AntDesign name='profile' color='#74549B' size ={24} />
             }}    
-        />
-        <Tab.Screen
-            name='Buscador'
-            component={Buscador}
         />
     </Tab.Navigator>
   )

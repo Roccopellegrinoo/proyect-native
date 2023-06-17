@@ -16,10 +16,10 @@ export default class FormRegister extends Component {
             authError: '',
             setDocumentError: '',
         }
-        
     }
 
     registrarUsuario(mail, contraseña){
+
         this.setState({ inputError: '', authError: '', setDocumentError: '' })
 
         if (this.state.inputNombre === '' || this.state.inputMail === '' || this.state.inputContraseña === '') {
@@ -52,24 +52,30 @@ export default class FormRegister extends Component {
 
     }
 
-
     render() {
         return (
             <View style={styles.contenedor}>
                 <Text style={styles.title}>Regístrate</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder='Nombre completo'
+                    placeholder='Nombre completo*'
                     keyboardType='default'
                     onChangeText={(text) => this.setState({ inputNombre: text })}
                     value={this.state.inputNombre}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Email'
+                    placeholder='Email*'
                     keyboardType='email-address'
                     onChangeText={(text) => this.setState({ inputMail: text })}
                     value={this.state.inputMail}
+                />
+                <TextInput
+                    style={styles.input_area}
+                    placeholder='Mini bio'
+                    keyboardType='default'
+                    onChangeText={(text) => this.setState({ inputBio: text })}
+                    value={this.state.inputBio}
                 />
                 <TextInput
                     style={styles.input}
@@ -87,7 +93,7 @@ export default class FormRegister extends Component {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Contraseña'
+                    placeholder='Contraseña*'
                     onChangeText={(text) => this.setState({ inputContraseña: text })}
                     value={this.state.inputContraseña}
                     secureTextEntry={true}
