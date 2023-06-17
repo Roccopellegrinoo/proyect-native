@@ -10,23 +10,25 @@ class FormLogin extends Component {
             inputContraseña:''
         }
     }
-    validarCampo(texto) {
-        return texto.length >= 3
-    }
+
     logueo(mail, password){
-        if (!this.validarCampo(mail)) {
-            console.log('Longitud de email no válida.');
+
+    this.setState({ inputError: '', authError: '' })
+
+        if (mail === '' || password === '') {
+            console.log("Todos los campos son obligatorios.")
+            this.setState({ inputError: 'Todos los campos son obligatorios.' })
+            return false
+        } else {
+            auth.signInWithEmailAndPassword(mail, password)
+                .then(resp => this.props.navigation.navigate('HomeNav'))
+                .catch(err => {
+                    console.log(err)
+                    this.setState({ authError: err.message })
+                })
         }
 
-        if (!this.validarCampo(password)) {
-            console.log('Longitud de password no válida.');
-        }
-        auth.signInWithEmailAndPassword(mail, password)
-        .then(resp => this.props.navigation.navigate('HomeNav'))
-        .catch(err => console.log(err))
-    }
-
-  render() {
+  render() 
     return (
       <View style={styles.contenedor}>
         <Text style={styles.title}>Ingresar</Text>
@@ -45,13 +47,27 @@ class FormLogin extends Component {
             style={styles.input}
             secureTextEntry={true}
         />
-        <TouchableOpacity
+           <TouchableOpacity
             onPress={() => this.logueo(this.state.inputEmail, this.state.inputContraseña)}
-            style={styles.btn}
+            style = {
+                this.state.inputEmail !== '' && this.state.inputContraseña !== '' ?
+                styles.btnH : 
+                styles.btnD
+            }
         >
                     <Text style={styles.btnText}>Ingresar</Text>
 
         </TouchableOpacity>
+        {
+            this.state.inputError !== '' || this.state.authError !== '' ?
+            <Text
+                style={styles.error}
+            >
+                {this.state.inputError}
+                {this.state.authError}
+            </Text> :
+            null
+        }
       </View>
     )
   }
@@ -80,7 +96,14 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 5
     },
-    btn: {
+    btnD: {
+        marginTop: 32,
+        backgroundColor: '#3e3e3e',
+        padding: 10,
+        borderRadius: 20,
+        margin: 5,
+    },
+    btnH: {
         marginTop: 32,
         backgroundColor: '#74549B',
         padding: 10,
@@ -98,6 +121,9 @@ const styles = StyleSheet.create({
         color: '#151515',
         fontSize: 24,
     },
+    error: {
+        color: 'red',
+    }
 })
 
 export default FormLogin
