@@ -26,12 +26,12 @@ function FunctionalitiesNav() {
             name='ProfileAmigo'
             component={ProfileAmigo}
         />
-        {/* DESDE ACÁ ES DE EMI */}
+        {}
         <Stack.Screen
             name='Buscador'
             component={Buscador}
         />
-        {/* HASTA ACÁ ES DE EMI */}
+        {}
       </Stack.Navigator>
     )
 }
