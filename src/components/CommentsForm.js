@@ -8,44 +8,86 @@ export default class CommentsForm extends Component {
     constructor(props){
         super(props)
         this.state = {
-            comentario:''
+            comentario:'',
+            data:{},
+            error: ''
             
         }
     }
 
     crearComentario(comentario){
+        if (this.state.comentario != '') {
+            db.collection('posts')
+            .doc(this.props.idPost)
+            .update({
+                comments: firebase.firestore.FieldValue.arrayUnion({
+                    owner: auth.currentUser.email,
+                    createdAt: Date.now(),
+                    comentario: comentario
+                })
+            })
+        } else {
+            this.setState({
+                error: 'El comentario no puede estar vacío'
+            })
+        }
+    }
+       
+
+
+
+    componentDidMount(){
         db.collection('posts')
         .doc(this.props.idPost)
-        .update({
-            comments: firebase.firestore.FieldValue.arrayUnion({
-                owner: auth.currentUser.email,
-                createdAt: Date.now(),
-                comentario: comentario
-            })
+        .onSnapshot(doc => {
+            this.setState({
+                data:doc.data()
+            }, ()=> console.log(this.state.data))
         })
     }
-
     
 
     render() {
         return (
-          <View>
-            <TextInput
-            keyboardType='default'
-            style = {styles.input}
-            onChangeText={text => this.setState({comentario: text})}
-            value={this.state.comentario}
-            placeholder='Crea tu comentario'
-            />
-            <TouchableOpacity
-            onPress={()=> this.crearComentario(this.state.comentario)}
-            >
-                <Text>Enviar comentario</Text>
-            </TouchableOpacity>
-          </View>
-        )
-      }
-    }
+                <View style={styles.contenedor}>
+                    {
+                        this.state.data.comments && this.state.data.comments.length > 0 ? 
+                        <>
+                            <Text style={styles.title}>Comentarios</Text>
+                            <FlatList
+                                style={styles.flatList}
+                                data={this.state.data.comments}
+                                keyExtractor={item => item.createdAt.toString()}
+                                renderItem={({item}) => <Comentario owner={item.owner} comentario={item.comentario} navigation={this.props.navigation}/>}
+                                showsVerticalScrollIndicator={false}
+                            />
+                        </> :
+                        <Text style={styles.title}>No hay comentarios</Text>
+                    }
+        
+                    {/*  */}
+                    <TextInput
+                    keyboardType='default'
+                    style = {styles.input}
+                    onChangeText={text => this.setState({comentario: text})}
+                    value={this.state.comentario}
+                    placeholder='Crea tu comentario'
+                    />
+                    <TouchableOpacity
+                        style = {
+                            this.state.comentario !== '' ?
+                            styles.btnH : 
+                            styles.btnD
+                        }
+                        onPress={()=> this.crearComentario(this.state.comentario)}
+                    >
+                        <Text style={styles.btnText}>Enviar comentario</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.error}>{this.state.error}</Text>
+              </View>
+            )
+          }
+        }
 
 const styles = StyleSheet.create({
 
@@ -80,5 +122,22 @@ const styles = StyleSheet.create({
     },
     flatList: {
         width: '100%',
-    }
+    },
+    error: {
+        color: 'red',
+    },
+    btnD: {
+        marginTop: 32,
+        backgroundColor: '#3e3e3e',
+        padding: 10,
+        borderRadius: 20,
+        margin: 5,
+    },
+    btnH: {
+        marginTop: 32,
+        backgroundColor: '#74549B',
+        padding: 10,
+        borderRadius: 20,
+        margin: 5,
+    },
 })
